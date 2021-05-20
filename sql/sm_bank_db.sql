@@ -41,7 +41,34 @@ CREATE TABLE accounts(
     nic VARCHAR(12) NOT NULL,
     account_type VARCHAR(20) NOT NULL,
     current_balance FLOAT(24, 2) DEFAULT 0,
+    is_deleted TINYINT(1) DEFAULT 0,
     PRIMARY KEY (account_number),
     FOREIGN KEY (nic) REFERENCES users(nic),
     FOREIGN KEY (account_type) REFERENCES account_types(account_type)
+);
+
+DROP TABLE IF EXISTS money_transfers;
+CREATE TABLE money_transfers(
+    money_transfer_id BIGINT(15) AUTO_INCREMENT,
+    time_stamp DATETIME NOT NULL,
+    debit_account BIGINT(10) NOT NULL,
+    credit_account BIGINT(10) NOT NULL,
+    amount FLOAT(24, 2) NOT NULL,
+    PRIMARY KEY (money_transfer_id),
+    FOREIGN KEY (debit_account) REFERENCES accounts(account_number),
+    FOREIGN KEY (credit_account) REFERENCES accounts(account_number)
+);
+
+DROP TABLE IF EXISTS transactions;
+CREATE TABLE transactions(
+    transaction_id BIGINT(15) AUTO_INCREMENT,
+    time_stamp DATETIME NOT NULL,
+    account_number BIGINT(10) NOT NULL,
+    description VARCHAR(50),
+    money_transfer_id BIGINT(15),
+    amount FLOAT(24, 2) NOT NULL,
+    balance FLOAT(24, 2) NOT NULL,
+    PRIMARY KEY (transaction_id),
+    FOREIGN KEY (account_number) REFERENCES accounts(account_number),
+    FOREIGN KEY (money_transfer_id) REFERENCES money_transfers(money_transfer_id)
 );
