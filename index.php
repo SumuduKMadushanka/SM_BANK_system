@@ -21,8 +21,8 @@
             $password = mysqli_real_escape_string($connection, $_POST["password"]);
 
             // Query create
-            $query = "SELECT username, hashed_password, salt, first_name, last_name, user_type
-                FROM users
+            $query = "SELECT username, nic, hashed_password, salt
+                FROM user_identity
                 WHERE username = '{$username}'
                 AND is_deleted = 0
                 LIMIT 1;";
@@ -38,26 +38,44 @@
 
                 // Check if username and password are correct
                 if ($user['username'] == $username && $user['hashed_password'] == $hashed_password) {
-                    // Valid user found
-                    $_SESSION["username"] = $user["username"];
-                    $_SESSION["first_name"] = $user["first_name"];
-                    $_SESSION["last_name"] = $user["last_name"];
-                    $_SESSION["user_type"] = $user["user_type"];
-                    $_SESSION["expire"] = time() + 60;
-                    
-                    // Updating last Login
-                    $query = "UPDATE users
-                        SET last_login = NOW()
-                        WHERE username = '{$username}'
+                    // Save User NIC to get user details
+                    $nic = $user['nic'];
+                    // Get user details from users table
+                    $query = "SELECT first_name, last_name, user_type
+                        FROM users
+                        WHERE nic = '{$nic}'
                         LIMIT 1;";
                     $result = mysqli_query($connection, $query);
 
                     // Verify query
                     verify_query($result);
+                    if (mysqli_num_rows($result) == 1) {
+                        $user_details = mysqli_fetch_assoc($result);
 
-                    // Redirect to home pages
-                    if ($user["user_type"] == "admin") exit(header("Location: home_admin.php"));
-                    if ($user["user_type"] == "user") exit(header("Location: home_user.php"));
+                        // Valid user found
+                        $_SESSION["nic"] = $nic;
+                        $_SESSION["first_name"] = $user_details["first_name"];
+                        $_SESSION["last_name"] = $user_details["last_name"];
+                        $_SESSION["user_type"] = $user_details["user_type"];
+                        $_SESSION["expire"] = time() + 60;
+                        
+                        // Updating last Login
+                        $query = "UPDATE users
+                            SET last_login = NOW()
+                            WHERE nic = '{$nic}'
+                            LIMIT 1;";
+                        $result = mysqli_query($connection, $query);
+
+                        // Verify query
+                        verify_query($result);
+
+                        // Redirect to home pages
+                        if ($user_details["user_type"] == "admin") exit(header("Location: home_admin.php"));
+                        if ($user_details["user_type"] == "user") exit(header("Location: home_user.php"));
+                    } else {
+                        $errors[] = "User Not Found";
+    
+                    }
 
                 } else {
                     $errors[] = "Invalid username / pasword";
