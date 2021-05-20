@@ -158,3 +158,44 @@ main h1 span a:hover {
 .login button {
     margin-left: 0;
 }
+
+/***************************************************************************************
+    Header
+****************************************************************************************/
+header {
+    background: #cceeee;
+    border: 1px #b3e6e6 solid;
+    padding: 5px 5px 2px 5px;
+}
+
+header .bank_header {
+    float: left;
+}
+
+header .bank_header .bank_logo {
+    float: left;
+}
+
+header .bank_header .bank_logo img {
+    width: 150px;
+}
+
+header .bank_header .bank_name {
+    float: right;
+    font-size: 50px;
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+    font-weight: bold;
+    color: darkblue;
+    padding: 40px 0px 0px 40px;
+}
+
+header .user_header {
+    padding: 35px 20px 0px 0px;
+    float: right;
+}
+
+header .user_header .user_full_name {
+    font-size: 22.5px;
+    padding-bottom: 25px;
+}

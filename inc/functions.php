@@ -20,6 +20,33 @@
         return (preg_match($pattern, $email));
     }
 
+    // Check if session attribute set
+    function verify_session_attribute($attribute) {
+        if (!isset($_SESSION[$attribute])){
+            clear_session();
+            exit(header("Location: index.php"));
+        }
+    }
+
+    // Verify user type
+    function verify_user_type($user_type, $expected_type) {
+        if ($user_type != $expected_type){
+            clear_session();
+            exit(header("Location: index.php"));
+        }
+    }
+
+    // Verify session expired (1 min rule)
+    function verify_session_expired() {
+        if (!isset($_SESSION["expire"]) || (time() - $_SESSION["expire"]) >= 0){
+            clear_session();
+            exit(header("Location: index.php"));
+            
+        } else {
+            $_SESSION["expire"] = time() + 60;
+        }
+    }
+
     // Verify query
     function verify_query($result, $redirect_to = "") {
         global $connection;
