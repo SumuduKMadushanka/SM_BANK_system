@@ -1,6 +1,8 @@
 /***************************************************************************************
-    Whole Web Site
+    Basic Styles
 ****************************************************************************************/
+
+@charset "UTF-8";
 
 body { 
     font-size: 16px; /* Default Font Size */
@@ -78,32 +80,6 @@ button:active {
 
 .cancel:active {
     background: linear-gradient(#dd0000, #ff3333, #dd0000);
-}
-
-main {
-    width: 1000px;
-    margin: 25px auto;
-}
-
-main h1 {
-    padding: 10px;
-    font-size: 40px;
-    
-}
-
-main h1 span {
-    float: right;
-    font-size: 24px;
-    padding-top: 16px;
-}
-
-main h1 span a {
-    text-decoration: none;
-    color: blue;
-}
-
-main h1 span a:hover {
-    color: red;
 }
 
 .error {
@@ -198,4 +174,62 @@ header .user_header {
 header .user_header .user_full_name {
     font-size: 22.5px;
     padding-bottom: 25px;
+}
+
+/***************************************************************************************
+    Main Body
+****************************************************************************************/
+main {
+    width: 100%;
+    margin: 5px auto;
+}
+
+main .menu_bar {
+    width: 263px;
+    height: 500px;
+    background: #cceeee;
+    border: 1px #b3e6e6 solid;
+    padding: 15px;
+    float: left;
+}
+
+main .menu_bar ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    text-align: center;
+}
+
+main .menu_bar ul li {
+    margin-bottom: 15px;
+}
+
+.menu_item, .menu_item_selected{
+    padding: 15px;
+    display: block;
+    text-decoration: none;
+    border-radius: 25px;
+    background: linear-gradient(#000099, #000064, #000099);
+    color: white;
+    font-size: 20px;
+}
+
+.menu_item_selected {
+    font-weight: bold;
+    font-style: italic;
+    background: linear-gradient(#0000da, #0000a6, #0000da);
+}
+
+.menu_item:hover, .menu_item_selected:hover {
+    background: linear-gradient(#3333ff, #0000cc, #3333ff);
+}
+
+.menu_item:active, .menu_item_selected:active {
+    background: linear-gradient(#0000cc, #3333ff, #0000cc);
+}
+
+.web_body {
+    width: 80%;
+    border: 1px #b3e6e6 solid; /* just for identify the body*/
+    float: right;
 }

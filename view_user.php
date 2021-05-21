@@ -7,10 +7,10 @@
     // Check if user is logged and verify the user
     verify_session_attribute("nic");
     verify_user_type($_SESSION["user_type"], "user");
-    verify_session_expired(); // Commented for testing only
+    verify_session_expired();
     
     // Page name
-    $page_name = "home";
+    $page_name = "view_user";
 
 ?>
 
@@ -18,7 +18,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home Page (User) - SM Bank</title>
+    <title>View Profile (User) - SM Bank</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
