@@ -102,7 +102,7 @@
     <title>Log In - SM Bank</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
-<body>
+<body class="background_login">
     <div class="login_title">
         <h1>SM BANK</h1>
     </div> <!-- login_title -->
@@ -141,5 +141,5 @@
             </p>
         </form>
     </div> <!-- login -->
-</body>
+</body> <!-- background_login -->
 </html>
