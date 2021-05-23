@@ -9,6 +9,32 @@
     verify_user_type($_SESSION["user_type"], "user");
     verify_session_expired();
     
+    // Account Details
+    $nic = $_SESSION["nic"];
+    $account_list = "";
+
+    // Query for get users details
+    $query = "SELECT account_number, account_type, current_balance
+        FROM accounts
+        WHERE nic = '{$nic}'
+        AND is_deleted = 0
+        ORDER BY account_number;";
+    $result = mysqli_query($connection, $query);
+
+    // Verify query
+    verify_query($result, "home_user.php");
+
+    while ($user = mysqli_fetch_assoc($result)) {
+        $account_list .= "<a class=\"account_number\" href=\"view_transactions.php?account_number={$user['account_number']}\">";
+        $account_list .= "<dt>{$user['account_number']}</dt>";
+        $account_list .= "<dd class=\"account_data\">Current Balance: Rs. {$user['current_balance']}</dd>";
+        $account_list .= "<dd class=\"account_data\">Account Type: {$user['account_type']}</dd>";
+        $account_list .= "</a>";
+    }
+
+    if ($account_list == "")
+        $account_list .= "<dt class=\"account_data\"> No Account Found </dt>";
+
     // Page name
     $page_name = "view_account";
 
@@ -27,7 +53,11 @@
     <main class="clearfix">
         <?php require_once("inc/menu_bar.php"); ?>
         
-        <div class="web_body clearfix">test2</div> <!-- web_body -->
+        <div class="web_body clearfix">
+            <dl class="account">
+                <?php echo $account_list; ?>
+            </dl> <!-- account -->
+        </div> <!-- web_body -->
     </main> <!-- main_body -->
 </body>
 </html>

@@ -240,7 +240,6 @@ main .menu_bar ul li {
 /***************************************************************************************
     Home Page Body
 ****************************************************************************************/
-
 .balance_table {
     border-collapse: collapse;
     font-size: 25px;
@@ -259,7 +258,6 @@ main .menu_bar ul li {
 /***************************************************************************************
     View User Body
 ****************************************************************************************/
-
 .view_user_table {
     width: 100%;
     border-collapse: collapse;
@@ -279,7 +277,36 @@ main .menu_bar ul li {
 /***************************************************************************************
     Modify User Body
 ****************************************************************************************/
-
 .modify_user {
     font-weight: bold;
+}
+
+/***************************************************************************************
+    View Acount Body
+****************************************************************************************/
+.account {
+    font-weight: bold;
+    font-size: 20px;
+    padding: 0px 0px 0px 25px;
+    border-bottom: 2px #777777 solid;
+}
+
+.account_number {
+    font-size: 25px;
+    text-decoration: none;
+    color: black;
+}
+
+.account_number:hover {
+    color: blue;
+}
+
+.account_number:active {
+    color: red;
+}
+
+.account_data {
+    font-size: 20px;
+    font-style: italic;
+    color: #333333;
 }
