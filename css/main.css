@@ -143,8 +143,8 @@ button:active {
     Header
 ****************************************************************************************/
 header {
-    background: #cceeee;
-    border: 1px #b3e6e6 solid;
+    background: #88ccff;
+    border: 1px #88aaff solid;
     padding: 5px 5px 2px 5px;
 }
 
@@ -191,8 +191,8 @@ main {
 main .menu_bar {
     width: 263px;
     height: 500px;
-    background: #cceeee;
-    border: 1px #b3e6e6 solid;
+    background: #88ddff;
+    border: 1px #88bbff solid;
     padding: 15px;
     float: left;
 }
@@ -234,7 +234,6 @@ main .menu_bar ul li {
 
 .web_body {
     width: 80%;
-    /* border: 1px #b3e6e6 solid; just for identify the body */
     float: right;
 }
 
@@ -255,4 +254,24 @@ main .menu_bar ul li {
 .balance_table_data {
     padding: 15px 5px 15px 100px;
     text-align: end;
+}
+
+/***************************************************************************************
+    View User Body
+****************************************************************************************/
+
+.view_user_table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #aaeeff;
+}
+
+.view_table_lable {
+    padding: 16px 50px 15px 25px;
+}
+
+.view_table_data {
+    padding: 15px 300px 15px 150px;
 }
