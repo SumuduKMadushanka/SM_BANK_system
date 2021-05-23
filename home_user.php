@@ -44,6 +44,13 @@
         <?php require_once("inc/menu_bar.php"); ?>
         
         <div class="web_body clearfix">
+            <?php
+                // Check for errors
+                if (isset($_GET["err"])) {
+                    display_single_error($_GET["err"]);
+                }
+            ?>
+
             <table class="balance_table">
                 <tr>
                     <td class="balance_table_label"> Current Available Balance </td> <!-- balance_table_label -->

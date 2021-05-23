@@ -30,7 +30,7 @@
     $result = mysqli_query($connection, $query);
 
     // Verify query
-    verify_query($result);
+    verify_query($result, "home_user.php");
     if (mysqli_num_rows($result) == 1) {
         // Save the user details
         $user = mysqli_fetch_assoc($result);
