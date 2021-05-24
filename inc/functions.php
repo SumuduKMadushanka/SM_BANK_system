@@ -77,6 +77,13 @@
         }
     }
 
+    // Checks for get account
+    function verify_get_account() {
+        if (!isset($_GET["account_number"])) {
+            exit(header("Location: view_accounts.php"));
+        }
+    }
+
     // Verify query
     function verify_query($result, $redirect_to = "") {
         global $connection;

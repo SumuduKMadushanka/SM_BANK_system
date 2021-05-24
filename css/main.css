@@ -310,3 +310,23 @@ main .menu_bar ul li {
     font-style: italic;
     color: #333333;
 }
+
+/***************************************************************************************
+    View Transactions Body
+****************************************************************************************/
+.view_transaction {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 20px;
+    background-color: #aaeeff;
+    border: 2px #777777 solid;
+}
+
+.view_transaction_header {
+    border: 2px #777777 solid;
+}
+
+.view_transaction_data {
+    border: 2px #777777 solid;
+    text-align: center;
+}

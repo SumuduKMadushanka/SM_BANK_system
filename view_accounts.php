@@ -54,6 +54,13 @@
         <?php require_once("inc/menu_bar.php"); ?>
         
         <div class="web_body clearfix">
+            <?php
+                // Check for errors
+                if (isset($_GET["err"])) {
+                    display_single_error($_GET["err"]);
+                }
+            ?>
+
             <dl class="account">
                 <?php echo $account_list; ?>
             </dl> <!-- account -->
