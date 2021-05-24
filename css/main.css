@@ -330,3 +330,26 @@ main .menu_bar ul li {
     border: 2px #777777 solid;
     text-align: center;
 }
+
+/***************************************************************************************
+    Money Transfer Body
+****************************************************************************************/
+
+.search_account {
+    width: 25%;
+    margin-left: 20%;
+    float: left;
+    background: linear-gradient(#000099, #000064, #000099);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+}
+
+.search_account:hover {
+    background: linear-gradient(#3333ff, #0000cc, #3333ff);
+}
+
+.search_account:active {
+    background: linear-gradient(#0000cc, #3333ff, #0000cc);
+}

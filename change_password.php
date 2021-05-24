@@ -117,7 +117,7 @@
                 </p>
 
                 <p>
-                    <label class="modify_user" for="password"> Old Password: </label>
+                    <label class="modify_user" for="old_password"> Old Password: </label>
                     <input type="password" name="old_password" id="old_password" placeholder="Old Password" 
                         required>
                 </p>
@@ -140,7 +140,7 @@
                 </p>
 
                 <p>
-                    <button type="submit" name="submit">Save Changes</button>
+                    <button type="submit" name="submit"> Changes Password </button>
                     <a class="cancel" href="home_user.php">Cancel</a> <!-- cancel -->
                 </p>
             </form>
