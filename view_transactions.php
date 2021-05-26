@@ -5,12 +5,10 @@
 
 <?php
     // Check if user is logged and verify the user
-    verify_session_attribute("nic");
-    verify_user_type($_SESSION["user_type"], "user");
-    verify_session_expired();
+    page_open_verification("user");
     
     // Check if account_number is set
-    verify_get_account();
+    verify_get_attribute("account_number", "view_accounts.php");
     
     // transaction details
     $account_number = mysqli_real_escape_string($connection, $_GET["account_number"]);

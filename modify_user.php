@@ -5,9 +5,7 @@
 
 <?php
     // Check if user is logged and verify the user
-    verify_session_attribute("nic");
-    verify_user_type($_SESSION["user_type"], "user");
-    verify_session_expired();
+    page_open_verification("user");
     
     // User Details
     $first_name = "";
@@ -192,7 +190,7 @@
                 <?php
                     // Check for errors
                     if (isset($errors) && !empty($errors)) {
-                        display_errors($errors);
+                        display_multiple_errors($errors);
                     }
                 ?>
 

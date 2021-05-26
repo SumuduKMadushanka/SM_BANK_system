@@ -1,8 +1,54 @@
 <?php
 
+    // Check if session attribute set
+    function verify_session_attribute($attribute) {
+        if (!isset($_SESSION[$attribute])){
+            clear_session();
+            exit(header("Location: index.php"));
+        }
+    }
+
+    // Checks for get attributes
+    function verify_get_attribute($attribute, $redirect_to = "") {
+        if (!isset($_GET[$attribute])) {
+            if (empty($redirect_to)) {
+                clear_session();
+                exit(header("Location: index.php"));
+
+            } else {
+                $redirect_to = "Location: " . $redirect_to;
+                exit(header($redirect_to));
+            }
+        }
+    }
+
+    // Verify user type
+    function verify_user_type($user_type, $expected_type) {
+        if ($user_type != $expected_type){
+            clear_session();
+            exit(header("Location: index.php"));
+        }
+    }
+
+    // Verify session expired (1 min rule)
+    function verify_session_expired() {
+        if (!isset($_SESSION["expire"]) || (time() - $_SESSION["expire"]) >= 0){
+            clear_session();
+            exit(header("Location: index.php"));
+            
+        } else {
+            $_SESSION["expire"] = time() + 60;
+        }
+    }
+
+    function page_open_verification($user_type) {
+        verify_session_attribute("nic");
+        verify_user_type($_SESSION["user_type"], $user_type);
+        verify_session_expired();
+    }
+
     // Checks required fields
     function check_required_fields($required_fields) {
-        // Errors array for put errors if exists
         $errors = array();
 
         foreach ($required_fields as $field) {
@@ -32,8 +78,23 @@
         return (preg_match($pattern, $email));
     }
 
+    // Verify query
+    function verify_query($result, $redirect_to = "") {
+        global $connection;
+
+        if (!$result) {
+            if (empty($redirect_to)) {
+                exit ("Database Query Failed. " . mysqli_error($connection));
+
+            } else {
+                $redirect_to = "Location: " . $redirect_to . "?err=query_faild";
+                exit(header($redirect_to));
+            }
+        }
+    }
+
     // Display errors in proper format
-    function display_errors($errors) {
+    function display_multiple_errors($errors) {
         echo "<p class=\"error\">";
         
         foreach ($errors as $error) {
@@ -48,55 +109,6 @@
         echo "<p class=\"error\">";
         echo ucfirst(str_replace("_", " ", $error));
         echo "</p>";
-    }
-
-    // Check if session attribute set
-    function verify_session_attribute($attribute) {
-        if (!isset($_SESSION[$attribute])){
-            clear_session();
-            exit(header("Location: index.php"));
-        }
-    }
-
-    // Verify user type
-    function verify_user_type($user_type, $expected_type) {
-        if ($user_type != $expected_type){
-            clear_session();
-            exit(header("Location: index.php"));
-        }
-    }
-
-    // Verify session expired (1 min rule)
-    function verify_session_expired() {
-        if (!isset($_SESSION["expire"]) || (time() - $_SESSION["expire"]) >= 0){
-            clear_session();
-            exit(header("Location: index.php"));
-            
-        } else {
-            $_SESSION["expire"] = time() + 60;
-        }
-    }
-
-    // Checks for get account
-    function verify_get_account() {
-        if (!isset($_GET["account_number"])) {
-            exit(header("Location: view_accounts.php"));
-        }
-    }
-
-    // Verify query
-    function verify_query($result, $redirect_to = "") {
-        global $connection;
-
-        if (!$result) {
-            if (empty($redirect_to)) {
-                exit ("Database Query Failed. " . mysqli_error($connection));
-
-            } else {
-                $redirect_to = "Location: " . $redirect_to . "?err=query_faild";
-                exit(header($redirect_to));
-            }
-        }
     }
 
     // Clear session
