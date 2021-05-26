@@ -8,28 +8,25 @@
     page_open_verification("user");
     
     // User Details
+    $nic = $_SESSION["nic"];
     $first_name = "";
     $last_name = "";
     $username = "";
-    $nic = $_SESSION["nic"];
     $address = "";
     $birthday = "";
     $profession = "";
     $contact_number = "";
     $email = "";
 
-    // Select query for get user details
     $query = "SELECT first_name, last_name, username, address, birthday, profession, contact_number, email
         FROM users INNER JOIN user_identity
         ON users.nic = user_identity.nic
         WHERE users.nic = '{$nic}'
         LIMIT 1;";
     $result = mysqli_query($connection, $query);
-
-    // Verify query
     verify_query($result, "home_user.php");
+
     if (mysqli_num_rows($result) == 1) {
-        // Save the user details
         $user = mysqli_fetch_assoc($result);
 
         $first_name = $user["first_name"];
@@ -42,14 +39,12 @@
         $email = $user["email"];
     }
 
-    // If submit modified form
     if (isset($_POST["submit"])) {
         $user_updated = false;
-        $user_name_updated = false;
         $errors = array();
 
         // Check for required fields
-        $required_fields = array("first_name", "username", "nic", "address", "birthday", "contact_number");
+        $required_fields = array("first_name", "username", "address", "birthday", "contact_number");
         $errors = array_merge($errors, check_required_fields($required_fields));
 
         // Checks max length
@@ -57,7 +52,6 @@
             "first_name" => 50,
             "last_name" => 50,
             "username" => 101,
-            "nic" => 12,
             "address" => 200,
             "birthday" => 10,
             "profession" => 100,
@@ -67,14 +61,10 @@
         $errors = array_merge($errors, check_field_max_length($field_max_length));
 
         // Validate email
-        if (!empty(trim($_POST["email"])) && !is_email($_POST["email"])) {
+        if (!empty(trim($_POST["email"])) && !is_email($_POST["email"]))
             $errors[] = "Invalid Email";
-        }
 
-        // If not errors in form
         if (empty($errors)) {
-            // Assign data in variables secure way
-            $nic = mysqli_real_escape_string($connection, $_POST["nic"]);
             $first_name_new = mysqli_real_escape_string($connection, trim($_POST["first_name"]));
             $last_name_new = mysqli_real_escape_string($connection, trim($_POST["last_name"]));
             $username_new = mysqli_real_escape_string($connection, trim($_POST["username"]));
@@ -86,6 +76,7 @@
 
             if ($first_name_new != $first_name ||
                 $last_name_new != $last_name ||
+                $username_new != $username ||
                 $address_new != $address ||
                 $birthday_new != $birthday ||
                 $profession_new != $profession ||
@@ -94,6 +85,7 @@
             ) {
                 $first_name = $first_name_new;
                 $last_name = $last_name_new;
+                $username = $username_new;
                 $address = $address_new;
                 $birthday = $birthday_new;
                 $profession = $profession_new;
@@ -103,63 +95,46 @@
                 // Check for existance of email
                 $query = "SELECT nic
                     FROM users
-                    WHERE email = '{$email}'
-                    AND nic != '{$nic}'
+                    WHERE email = '{$email}' AND nic != '{$nic}'
                     LIMIT 1;";
                 $result = mysqli_query($connection, $query);
-
-                // Verify query
                 verify_query($result, "home_user.php");
-
-                if (mysqli_num_rows($result) == 1) $errors[] = "Email already exists";
-
-                else {
-                    // Update the Database
-                    $query = "UPDATE users SET ";
-                    $query .= "first_name = '{$first_name}',";
-                    $query .= "last_name = '{$last_name}',";
-                    $query .= "address = '{$address}',";
-                    $query .= "birthday = '{$birthday}',";
-                    $query .= "profession = '{$profession}',";
-                    $query .= "contact_number = '{$contact_number}',";
-                    $query .= "email = '{$email}'";
-                    $query .= "WHERE nic = '{$nic}' LIMIT 1;";
-
-                    $result = mysqli_query($connection, $query);
-
-                    // Verify query
-                    verify_query($result, "home_user.php");
-                    $user_updated = true;
-                }
-
-            }
-
-            if ($username_new != $username) {
-                $username = $username_new;
+                if (mysqli_num_rows($result) == 1)
+                    $errors[] = "Email already exists";
 
                 // Check for existance of username
                 $query = "SELECT nic
                     FROM user_identity
-                    WHERE username = '{$username}'
-                    AND nic != '{$nic}'
+                    WHERE username = '{$username}' AND nic != '{$nic}'
                     LIMIT 1;";
                 $result = mysqli_query($connection, $query);
-
-                // Verify query
                 verify_query($result, "home_user.php");
-                
-                if (mysqli_num_rows($result) == 1) $errors[] = "Username already exists";
-                
-                else {
-                    $query = "UPDATE user_identity
+                if (mysqli_num_rows($result) == 1)
+                    $errors[] = "Username already exists";
+
+                if (empty($errors)) {
+                    // Update the Database
+                    $query = "UPDATE users 
+                        SET first_name = '{$first_name}',
+                            last_name = '{$last_name}',
+                            address = '{$address}',
+                            birthday = '{$birthday}',
+                            profession = '{$profession}',
+                            contact_number = '{$contact_number}',
+                            email = '{$email}'
+                        WHERE nic = '{$nic}'
+                        LIMIT 1;";
+
+                    $query .= "UPDATE user_identity
                         SET username = '{$username}'
                         WHERE nic = '{$nic}'
                         LIMIT 1;";
-                    $result = mysqli_query($connection, $query);
-
-                    // Verify query
+                    $result = mysqli_multi_query($connection, $query);
                     verify_query($result, "home_user.php");
-                    $user_name_updated = true;
+
+                    $_SESSION["first_name"] = $first_name;
+                    $_SESSION["last_name"] = $last_name;
+                    $user_updated = true;
                 }
 
             }
@@ -201,16 +176,6 @@
                         echo "<p class=\"info\">Modified User Successfull </p>";
                     }
                 ?>
-
-                <?php
-                    // Check if Username Modified successfully
-                    if (isset($user_name_updated) && $user_name_updated) {
-                        $_POST = array();
-                        echo "<p class=\"info\">Modified Username Successfull </p>";
-                    }
-                ?>
-
-                    <input type="hidden" name="nic" value=<?php echo "'{$nic}'"; ?>>
 
                 <p>
                     <label class="modify_user" for="first_name"> First Name: </label>
