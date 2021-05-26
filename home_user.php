@@ -18,9 +18,8 @@
     $result = mysqli_query($connection, $query);
     verify_query($result);
 
-    while ($balance_data = mysqli_fetch_assoc($result)) {
+    while ($balance_data = mysqli_fetch_assoc($result))
         $current_balance += $balance_data["current_balance"];
-    }
     
     // Page name
     $page_name = "home";

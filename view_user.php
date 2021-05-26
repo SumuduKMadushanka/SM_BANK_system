@@ -8,29 +8,26 @@
     page_open_verification("user");
     
     // User Details
+    $nic = $_SESSION["nic"];
     $first_name = "";
     $last_name = "";
     $username = "";
     $user_type = "";
-    $nic = $_SESSION["nic"];
     $address = "";
     $birthday = "";
     $profession = "";
     $contact_number = "";
     $email = "";
 
-    // Select query for get user details
     $query = "SELECT first_name, last_name, username, user_type, address, birthday, profession, contact_number, email
         FROM users INNER JOIN user_identity
         ON users.nic = user_identity.nic
         WHERE users.nic = '{$nic}'
         LIMIT 1;";
     $result = mysqli_query($connection, $query);
-
-    // Verify query
     verify_query($result, "home_user.php");
+
     if (mysqli_num_rows($result) == 1) {
-        // Save the user details
         $user = mysqli_fetch_assoc($result);
 
         $first_name = $user["first_name"];
