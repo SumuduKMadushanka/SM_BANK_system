@@ -16,11 +16,10 @@
         FROM accounts
         WHERE nic = '{$_SESSION["nic"]}';";
     $result = mysqli_query($connection, $query);
-
-    // Verify query
     verify_query($result);
-    while ($user = mysqli_fetch_assoc($result)) {
-        $current_balance += $user["current_balance"];
+
+    while ($balance_data = mysqli_fetch_assoc($result)) {
+        $current_balance += $balance_data["current_balance"];
     }
     
     // Page name
@@ -44,25 +43,20 @@
         <div class="web_body clearfix">
             <?php
                 // Check for errors
-                if (isset($_GET["err"])) {
+                if (isset($_GET["err"]))
                     display_single_error($_GET["err"]);
-                }
             ?>
 
             <table class="balance_table">
                 <tr>
                     <td class="balance_table_label"> Current Available Balance </td> <!-- balance_table_label -->
-
                     <td> : Rs. </td>
-
                     <td class="balance_table_data"> <?php echo number_format($current_balance, 2, '.', ''); ?> </td> <!-- balance_table_data -->
                 </tr>
 
                 <tr>
                     <td class="balance_table_label"> Current Loan Amount </td> <!-- balance_table_label -->
-
                     <td> : Rs. </td>
-
                     <td class="balance_table_data"> <?php echo number_format($current_loan, 2, '.', ''); ?> </td> <!-- balance_table_data -->
                 </tr>
             </table> <!-- balance_table -->
