@@ -7,52 +7,41 @@
 
     // Check if click Log IN button
     if (isset($_POST["submit"])) {
-        // Errors array for put errors if exists
         $errors = array();
 
-        // Check if username and password are correctly entered
+        // Check required_fields
         $required_fields = array("username", "password");
         $errors = array_merge($errors, check_required_fields($required_fields));
 
-        // Check are there any errors
         if (empty($errors)) {
-            // save username and password in variables
+            // Verify User
             $username = mysqli_real_escape_string($connection, $_POST["username"]);
             $password = mysqli_real_escape_string($connection, $_POST["password"]);
 
-            // Query create
             $query = "SELECT username, nic, hashed_password, salt
                 FROM user_identity
-                WHERE username = '{$username}'
-                AND is_deleted = 0
+                WHERE username = '{$username}' AND is_deleted = 0
                 LIMIT 1;";
             $result = mysqli_query($connection, $query);
-
-            // Verify query
             verify_query($result);
 
-            // Verify User
             if (mysqli_num_rows($result) == 1) {
                 $user = mysqli_fetch_assoc($result);
                 $hashed_password = sha1($password . strval($user['salt']));
 
-                // Check if username and password are correct
                 if ($user['username'] == $username && $user['hashed_password'] == $hashed_password) {
-                    // Save User NIC to get user details
+                    // Get user details
                     $nic = $user['nic'];
-                    // Get user details from users table
                     $query = "SELECT first_name, last_name, user_type
                         FROM users
                         WHERE nic = '{$nic}'
                         LIMIT 1;";
                     $result = mysqli_query($connection, $query);
-
-                    // Verify query
                     verify_query($result);
+
                     if (mysqli_num_rows($result) == 1) {
                         $user_details = mysqli_fetch_assoc($result);
 
-                        // Valid user found
                         $_SESSION["nic"] = $nic;
                         $_SESSION["first_name"] = $user_details["first_name"];
                         $_SESSION["last_name"] = $user_details["last_name"];
@@ -65,26 +54,25 @@
                             WHERE nic = '{$nic}'
                             LIMIT 1;";
                         $result = mysqli_query($connection, $query);
-
-                        // Verify query
                         verify_query($result);
 
                         // Redirect to home pages
-                        if ($user_details["user_type"] == "admin") exit(header("Location: home_admin.php"));
-                        if ($user_details["user_type"] == "user") exit(header("Location: home_user.php"));
-                    } else {
-                        $errors[] = "User Not Found";
-    
-                    }
+                        if ($user_details["user_type"] == "admin")
+                            exit(header("Location: home_admin.php"));
 
-                } else {
+                        else if ($user_details["user_type"] == "user")
+                            exit(header("Location: home_user.php"));
+
+                        else
+                            $errors[] = "Invalid User Type";
+                    } else
+                        $errors[] = "User Not Found";
+
+                } else
                     $errors[] = "Invalid username / pasword";
 
-                }
-            } else {
+            } else
                 $errors[] = "Invalid username / pasword";
-
-            }
 
         }
 
