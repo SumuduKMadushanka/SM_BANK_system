@@ -5,7 +5,7 @@ USE sm_bank_db;
 DROP TABLE IF EXISTS account_types;
 CREATE TABLE account_types(
     account_type VARCHAR(20),
-    interest_rate FLOAT(5, 3),
+    interest_rate DECIMAL(5, 3),
     PRIMARY KEY (account_type)
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE accounts(
     account_number BIGINT(10) AUTO_INCREMENT,
     nic VARCHAR(12) NOT NULL,
     account_type VARCHAR(20) NOT NULL,
-    current_balance FLOAT(24, 2) DEFAULT 0,
+    current_balance DECIMAL(24, 2) DEFAULT 0,
     is_deleted TINYINT(1) DEFAULT 0,
     PRIMARY KEY (account_number),
     FOREIGN KEY (nic) REFERENCES users(nic),
@@ -53,7 +53,7 @@ CREATE TABLE money_transfers(
     time_stamp DATETIME NOT NULL,
     debit_account BIGINT(10) NOT NULL,
     credit_account BIGINT(10) NOT NULL,
-    amount FLOAT(24, 2) NOT NULL,
+    amount DECIMAL(24, 2) NOT NULL,
     PRIMARY KEY (money_transfer_id),
     FOREIGN KEY (debit_account) REFERENCES accounts(account_number),
     FOREIGN KEY (credit_account) REFERENCES accounts(account_number)
@@ -66,8 +66,8 @@ CREATE TABLE transactions(
     account_number BIGINT(10) NOT NULL,
     description VARCHAR(50),
     money_transfer_id BIGINT(15),
-    amount FLOAT(24, 2) NOT NULL,
-    balance FLOAT(24, 2) NOT NULL,
+    amount DECIMAL(24, 2) NOT NULL,
+    balance DECIMAL(24, 2) NOT NULL,
     PRIMARY KEY (transaction_id),
     FOREIGN KEY (account_number) REFERENCES accounts(account_number),
     FOREIGN KEY (money_transfer_id) REFERENCES money_transfers(money_transfer_id)
