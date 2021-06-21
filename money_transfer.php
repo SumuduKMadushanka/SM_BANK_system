@@ -7,59 +7,50 @@
     // Check if user is logged and verify the user
     page_open_verification("user");
     
-    // Basic Part
-    // User Details
+    // Transfer Details
     $nic = $_SESSION["nic"];
     $user_account_list = "";
     $user_email = "";
     $user_account = "";
-
-    // Query for get users details
-    $query = "SELECT email
-        FROM users
-        WHERE nic = '{$nic}'
-        LIMIT 1;";
-    $result = mysqli_query($connection, $query);
-
-    // Verify query
-    verify_query($result, "home_user.php");
-    $user = mysqli_fetch_assoc($result);
-    $user_email = $user["email"];
-
-    // Query for get users details
-    $query = "SELECT account_number
-        FROM accounts
-        WHERE nic = '{$nic}'
-        AND is_deleted = 0
-        ORDER BY account_number;";
-    $result = mysqli_query($connection, $query);
-
-    // Verify query
-    verify_query($result, "home_user.php");
-    while ($user = mysqli_fetch_assoc($result))
-        $user_account_list .= "<option value=\"{$user['account_number']}\">";
-    
-    // Query for get all account details
     $beneficiary_account = "";
     $beneficiary_account_list = "";
     $beneficiary_name = "";
     $beneficiary_contact_number = "";
     $beneficiary_email = "";
 
+    // Get user data
+    $query = "SELECT email
+        FROM users
+        WHERE nic = '{$nic}'
+        LIMIT 1;";
+    $result = mysqli_query($connection, $query);
+    verify_query($result, "home_user.php");
+    $user = mysqli_fetch_assoc($result);
+    $user_email = $user["email"];
+
+    $query = "SELECT account_number
+        FROM accounts
+        WHERE nic = '{$nic}'
+        AND is_deleted = 0
+        ORDER BY account_number;";
+    $result = mysqli_query($connection, $query);
+    verify_query($result, "home_user.php");
+
+    while ($user = mysqli_fetch_assoc($result))
+        $user_account_list .= "<option value=\"{$user['account_number']}\">";
+    
+    // Get all accounts list
     $query = "SELECT account_number
         FROM accounts
         WHERE is_deleted = 0
         ORDER BY account_number;";
     $result = mysqli_query($connection, $query);
-
-    // Verify query
     verify_query($result, "home_user.php");
 
     while ($user = mysqli_fetch_assoc($result))
         $beneficiary_account_list .= "<option value=\"{$user['account_number']}\">";
 
-    // Search Part
-    // If search
+    // Search beneficiary
     if (isset($_POST["search"])) {
         $errors = array();
 
@@ -72,27 +63,30 @@
 
         $query = "SELECT nic
             FROM accounts
-            WHERE account_number = '{$user_account}'";
+            WHERE account_number = '{$user_account}';";
         $result = mysqli_query($connection, $query);
         verify_query($result, "home_user.php");
-        $user = mysqli_fetch_assoc($result);
-        if ($user["nic"] != $nic)
+        if (mysqli_num_rows($result) != 1)
             $errors[] = "Invalid User account";
+        
+        else {
+            $user = mysqli_fetch_assoc($result);
+            if ($user["nic"] != $nic)
+                $errors[] = "Invalid User account";
 
-        else if ($user_account == $beneficiary_account)
-            $errors[] = "User account and beneficiary account are same";
+            else if ($user_account == $beneficiary_account)
+                $errors[] = "User account and beneficiary account are same";
+        }
         
         if (empty($errors)) {
-            // Select query for get user details
             $query = "SELECT first_name, last_name, contact_number, email
                 FROM accounts INNER JOIN users
                 ON accounts.nic = users.nic
                 WHERE accounts.account_number = '{$beneficiary_account}'
                 LIMIT 1;";
             $result = mysqli_query($connection, $query);
-
-            // Verify query
             verify_query($result, "home_user.php");
+
             if (mysqli_num_rows($result) == 1){
                 $user = mysqli_fetch_assoc($result);
                 $beneficiary_name = $user["first_name"] . " " . $user["last_name"];
@@ -104,8 +98,7 @@
 
     }
 
-    // Submit part
-    // If submit money transfer form
+    // Submit transfer
     else if (isset($_POST["submit"])) {
         $errors = array();
         $transfer_done = false;
@@ -114,103 +107,93 @@
         $required_fields = array("user_account", "beneficiary_account", "nic", "amount", "password");
         $errors = array_merge($errors, check_required_fields($required_fields));
 
+        $password = mysqli_real_escape_string($connection, $_POST["password"]);
+        $query = "SELECT hashed_password, salt
+            FROM user_identity
+            WHERE nic = '{$nic}'
+            AND is_deleted = 0
+            LIMIT 1;";
+        $result = mysqli_query($connection, $query);
+        verify_query($result, "home_user.php");
+        $user = mysqli_fetch_assoc($result);
+        $hashed_password = sha1($password . strval($user['salt']));
+
+        if ($user['hashed_password'] != $hashed_password)
+            $errors[] = "Invalid Password";
+
         if (empty($errors)) {
             $user_account = mysqli_real_escape_string($connection, $_POST["user_account"]);
             $beneficiary_account = mysqli_real_escape_string($connection, $_POST["beneficiary_account"]);
             $amount = floatval(mysqli_real_escape_string($connection, $_POST["amount"]));
-            $password = mysqli_real_escape_string($connection, $_POST["password"]);
 
-            // Query create
-            $query = "SELECT hashed_password, salt
-                FROM user_identity
-                WHERE nic = '{$nic}'
-                AND is_deleted = 0
+            $query = "SELECT current_balance
+                FROM accounts
+                WHERE account_number = '{$user_account}'
                 LIMIT 1;";
             $result = mysqli_query($connection, $query);
-
-            // Verify query
             verify_query($result, "home_user.php");
             $user = mysqli_fetch_assoc($result);
-            $hashed_password = sha1($password . strval($user['salt']));
 
-            if ($user['hashed_password'] == $hashed_password) {
+            if ($amount <= $user["current_balance"]) {
                 $query = "SELECT current_balance
                     FROM accounts
-                    WHERE account_number = '{$user_account}'
+                    WHERE account_number = '{$beneficiary_account}'
                     LIMIT 1;";
                 $result = mysqli_query($connection, $query);
-
-                // Verify query
                 verify_query($result, "home_user.php");
-                $user = mysqli_fetch_assoc($result);
+                $beneficiary = mysqli_fetch_assoc($result);
 
-                if ($amount <= $user["current_balance"]) {
-                    $query = "SELECT current_balance
-                        FROM accounts
-                        WHERE account_number = '{$beneficiary_account}'
-                        LIMIT 1;";
-                    $result = mysqli_query($connection, $query);
+                $new_user_balance = $user["current_balance"] - $amount;
+                $new_beneficiary_balance = $beneficiary["current_balance"] + $amount;
+                $user_amount = 0 - $amount;
 
-                    // Verify query
-                    verify_query($result, "home_user.php");
-                    $beneficiary = mysqli_fetch_assoc($result);
+                $query = "SELECT money_transfer_id
+                    FROM money_transfers
+                    ORDER BY money_transfer_id DESC
+                    LIMIT 1;";
+                $result = mysqli_query($connection, $query);
+                verify_query($result, "home_user.php");
+                if (mysqli_num_rows($result) == 1) {
+                    $transfer_id = mysqli_fetch_assoc($result);
+                    $money_transfer_id = $transfer_id["money_transfer_id"] + 1;
+                } else
+                    $money_transfer_id = 1;
 
-                    $new_user_balance = $user["current_balance"] - $amount;
-                    $new_beneficiary_balance = $beneficiary["current_balance"] + $amount;
-                    $user_amount = 0 - $amount;
+                $query = "INSERT INTO money_transfers(
+                    money_transfer_id, time_stamp, debit_account, credit_account, amount)
+                    VALUES(
+                    {$money_transfer_id}, NOW(), {$user_account}, {$beneficiary_account}, {$amount});";
+                
+                $result = mysqli_query($connection, $query);
+                verify_query($result, "home_user.php");
 
-                    $query = "SELECT money_transfer_id
-                        FROM money_transfers
-                        ORDER BY money_transfer_id DESC
-                        LIMIT 1;";
-                    $result = mysqli_query($connection, $query);
+                $query = "INSERT INTO transactions
+                    (time_stamp, account_number, description, money_transfer_id, amount, balance)
+                    VALUES
+                    (NOW(), {$user_account}, 'Money Transfer', {$money_transfer_id}, {$user_amount}, {$new_user_balance}),
+                    (NOW(), {$beneficiary_account}, 'Money Transfer', {$money_transfer_id}, {$amount}, {$new_beneficiary_balance});";
+                
+                $result = mysqli_query($connection, $query);
+                verify_query($result, "home_user.php");
 
-                    // Verify query
-                    verify_query($result, "home_user.php");
-                    if (mysqli_num_rows($result) == 1) {
-                        $transfer_id = mysqli_fetch_assoc($result);
-                        $money_transfer_id = $transfer_id["money_transfer_id"] + 1;
-                    } else
-                        $money_transfer_id = 1;
+                $query = "UPDATE accounts SET ";
+                $query .= "current_balance = '{$new_user_balance}'";
+                $query .= "WHERE account_number = '{$user_account}' LIMIT 1;";
 
-                    $query = "INSERT INTO money_transfers(
-                        money_transfer_id, time_stamp, debit_account, credit_account, amount)
-                        VALUES(
-                        {$money_transfer_id}, NOW(), {$user_account}, {$beneficiary_account}, {$amount});";
-                    
-                    $result = mysqli_query($connection, $query);
-                    verify_query($result, "home_user.php");
+                $result = mysqli_query($connection, $query);
+                verify_query($result, "home_user.php");
 
-                    $query = "INSERT INTO transactions
-                        (time_stamp, account_number, description, money_transfer_id, amount, balance)
-                        VALUES
-                        (NOW(), {$user_account}, 'Money Transfer', {$money_transfer_id}, {$user_amount}, {$new_user_balance}),
-                        (NOW(), {$beneficiary_account}, 'Money Transfer', {$money_transfer_id}, {$amount}, {$new_beneficiary_balance});";
-                    
-                    $result = mysqli_query($connection, $query);
-                    verify_query($result, "home_user.php");
+                $query = "UPDATE accounts SET ";
+                $query .= "current_balance = '{$new_beneficiary_balance}'";
+                $query .= "WHERE account_number = '{$beneficiary_account}' LIMIT 1;";
 
-                    $query = "UPDATE accounts SET ";
-                    $query .= "current_balance = '{$new_user_balance}'";
-                    $query .= "WHERE account_number = '{$user_account}' LIMIT 1;";
-                    $result = mysqli_query($connection, $query);
+                $result = mysqli_query($connection, $query);
+                verify_query($result, "home_user.php");
+                $transfer_done = true;
 
-                    // Verify query
-                    verify_query($result, "home_user.php");
-
-                    $query = "UPDATE accounts SET ";
-                    $query .= "current_balance = '{$new_beneficiary_balance}'";
-                    $query .= "WHERE account_number = '{$beneficiary_account}' LIMIT 1;";
-                    $result = mysqli_query($connection, $query);
-
-                    // Verify query
-                    verify_query($result, "home_user.php");
-                    $transfer_done = true;
-
-                } else 
-                    $errors[] = "Insufficient Balance for the transaction";
             } else 
-                $errors[] = "Invalid Password";
+                $errors[] = "Insufficient Balance for the transaction";
+
         }
     }
     // Page name
@@ -299,7 +282,7 @@
 
                 <p>
                     <label class="modify_user" for="amount"> Amount: Rs. </label>
-                    <input type="number" name="amount" id="amount" placeholder="Amount">
+                    <input type="number" step="0.01" name="amount" id="amount" placeholder="Amount">
                 </p>
 
                 <p>
