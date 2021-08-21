@@ -207,6 +207,7 @@
     <meta charset="UTF-8">
     <title>Money Transfer (User) - SM Bank</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="icon" href="img/SM.jpg"/>
 </head>
 <body>
     <?php require_once("inc/header.php"); ?>
@@ -234,7 +235,7 @@
                 <input type="hidden" name="nic" value=<?php echo "'{$nic}'"; ?>>
 
                 <p>
-                    <label class="modify_user" for="user_account"> Your Account: </label>
+                    <label for="user_account"> Your Account: </label>
                     <input list="user_accounts" name="user_account" id="user_account" placeholder="Your Account" 
                         value=<?php echo "'{$user_account}'"; ?> required>
                         <datalist id="user_accounts">
@@ -243,13 +244,13 @@
                 </p>
 
                 <p>
-                    <label class="modify_user" for="user_email"> Your Email: </label>
+                    <label for="user_email"> Your Email: </label>
                     <input type="email" name="user_email" id="user_email" placeholder="Your Email"
                         value=<?php echo "'{$user_email}'"; ?> disabled>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="beneficiary_account"> Beneficiary Account: </label>
+                    <label for="beneficiary_account"> Beneficiary Account: </label>
                     <input list="beneficiary_accounts" name="beneficiary_account" id="beneficiary_account"
                         placeholder="Beneficiary Account" value=<?php echo "'{$beneficiary_account}'"; ?> required>
                         <datalist id="beneficiary_accounts">
@@ -263,30 +264,30 @@
                 </p>
 
                 <p>
-                    <label class="modify_user" for="beneficiary_name"> Beneficiary Name: </label>
+                    <label for="beneficiary_name"> Beneficiary Name: </label>
                     <input type="text" name="beneficiary_name" id="beneficiary_name" placeholder="Beneficiary Name"
                         value=<?php echo "'{$beneficiary_name}'"; ?> disabled>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="beneficiary_contact_number"> Beneficiary Contact Number: </label>
+                    <label for="beneficiary_contact_number"> Beneficiary Contact Number: </label>
                     <input type="text" name="beneficiary_contact_number" id="beneficiary_contact_number"
                         placeholder="Beneficiary Contact Number" value=<?php echo "'{$beneficiary_contact_number}'"; ?> disabled>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="beneficiary_email"> Beneficiary Email: </label>
+                    <label for="beneficiary_email"> Beneficiary Email: </label>
                     <input type="email" name="beneficiary_email" id="beneficiary_email" placeholder="Beneficiary Email"
                         value=<?php echo "'{$beneficiary_email}'"; ?> disabled>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="amount"> Amount: Rs. </label>
+                    <label for="amount"> Amount: Rs. </label>
                     <input type="number" step="0.01" name="amount" id="amount" placeholder="Amount">
                 </p>
 
                 <p>
-                    <label class="modify_user" for="password"> Password: </label>
+                    <label for="password"> Password: </label>
                     <input type="password" name="password" id="password" placeholder="Password">
                 </p>
 

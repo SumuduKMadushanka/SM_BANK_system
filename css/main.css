@@ -7,9 +7,10 @@
 body { 
     font-size: 16px; /* Default Font Size */
     font-family: Arial, Helvetica, sans-serif;
-    background-image: url("../img/bank_2.jpg");
+    background-image: url("../img/Background_1.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
+    background-attachment: fixed;
 }
 
 p {
@@ -20,6 +21,7 @@ p {
 label {
     float: left;
     padding: 5px;
+    font-weight: bold;
 }
 
 input, button {
@@ -48,14 +50,14 @@ input {
 }
 
 button {
-    width: 25%;
+    width: 35%;
     margin-left: 20%;
     float: left;
     background: linear-gradient(#009900, darkgreen, #009900);
     color: white;
     font-size: 16px;
     border: none;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 button:hover {
@@ -66,11 +68,15 @@ button:active {
     background: linear-gradient(#00dd00, #33ff33, #00dd00);
 }
 
+button:disabled {
+    background: linear-gradient(#999999, #646464, #999999);
+}
+
 .cancel {
     font-size: 16px;
     float: right;
-    border-radius: 10px;
-    padding: 5px 10.5%;
+    border-radius: 15px;
+    padding: 5px 15.5%;
     background: linear-gradient(#990000, #640000, #990000);
     color: white;
     text-decoration: none;
@@ -108,11 +114,11 @@ button:active {
 .login_title {
     width: 30%;
     margin: 10px auto;
-    padding: 0px 25px;
+    padding: 35px 0px 0px 0px;
     text-align: center;
     font-family: "Times New Roman", Times, serif;
     font-style: italic;
-    font-size: 25px;
+    font-size: 30px;
     color:cyan;
 }
 
@@ -130,6 +136,7 @@ button:active {
 }
 
 .login label {
+    font-weight: normal;
     padding: 0;
 }
 
@@ -145,8 +152,8 @@ button:active {
     Header
 ****************************************************************************************/
 header {
-    background: #88ccff;
-    border: 1px #88aaff solid;
+    background-image: url("../img/Background_2.jpg");
+    background-size: 100%;
     padding: 5px 5px 2px 5px;
 }
 
@@ -159,7 +166,7 @@ header .bank_header .bank_logo {
 }
 
 header .bank_header .bank_logo img {
-    width: 150px;
+    width: 125px;
 }
 
 header .bank_header .bank_name {
@@ -168,17 +175,20 @@ header .bank_header .bank_name {
     font-family: "Times New Roman", Times, serif;
     font-style: italic;
     font-weight: bold;
-    color: darkblue;
-    padding: 40px 0px 0px 40px;
+    color: aqua;
+    padding: 30px 0px 0px 40px;
 }
 
 header .user_header {
-    padding: 35px 20px 0px 0px;
+    padding: 20px 20px 0px 0px;
     float: right;
 }
 
 header .user_header .user_full_name {
-    font-size: 22.5px;
+    color:gold;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: right;
     padding-bottom: 25px;
 }
 
@@ -191,11 +201,10 @@ main {
 }
 
 main .menu_bar {
-    width: 263px;
-    height: 500px;
-    background: #88ddff;
-    border: 1px #88bbff solid;
-    padding: 15px;
+    width: 18.5%;
+    min-height: 538px;
+    background-image: url("../img/Background_3.jpg");
+    padding: 12.5px;
     float: left;
 }
 
@@ -207,17 +216,17 @@ main .menu_bar ul {
 }
 
 main .menu_bar ul li {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .menu_item, .menu_item_selected{
-    padding: 15px;
+    padding: 13px;
     display: block;
     text-decoration: none;
-    border-radius: 25px;
+    border-radius: 22px;
     background: linear-gradient(#000099, #000064, #000099);
     color: white;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .menu_item_selected {
@@ -235,7 +244,7 @@ main .menu_bar ul li {
 }
 
 .web_body {
-    width: 80%;
+    width: 79.25%;
     float: right;
 }
 
@@ -243,17 +252,18 @@ main .menu_bar ul li {
     Home Page Body
 ****************************************************************************************/
 .balance_table {
-    border-collapse: collapse;
     font-size: 25px;
-    font-weight: bold;
 }
 
 .balance_table_label {
-    padding: 15px 20px 15px 5px;
+    padding: 10px;
+    background-color: rgba(0, 0, 255, 0.3);
+    font-weight: bold;
 }
 
 .balance_table_data {
-    padding: 15px 5px 15px 100px;
+    padding: 10px 10px 10px 50px;
+    background-color: rgba(0, 0, 255, 0.2);
     text-align: end;
 }
 
@@ -262,25 +272,18 @@ main .menu_bar ul li {
 ****************************************************************************************/
 .view_user_table {
     width: 100%;
-    border-collapse: collapse;
     font-size: 20px;
-    font-weight: bold;
-    background-color: #aaeeff;
 }
 
 .view_table_lable {
-    padding: 16px 50px 15px 25px;
+    font-weight: bold;
+    padding: 10px 20px 10px 10px;
+    background-color: rgba(0, 0, 255, 0.3);
 }
 
 .view_table_data {
-    padding: 15px 300px 15px 150px;
-}
-
-/***************************************************************************************
-    Modify User Body
-****************************************************************************************/
-.modify_user {
-    font-weight: bold;
+    padding: 10px 300px 10px 10px;
+    background-color: rgba(0, 0, 255, 0.2);
 }
 
 /***************************************************************************************
@@ -318,18 +321,15 @@ main .menu_bar ul li {
 ****************************************************************************************/
 .view_transaction {
     width: 100%;
-    border-collapse: collapse;
     font-size: 20px;
-    background-color: #aaeeff;
-    border: 2px #777777 solid;
 }
 
 .view_transaction_header {
-    border: 2px #777777 solid;
+    background-color: rgba(0, 200, 225, 0.3);
 }
 
 .view_transaction_data {
-    border: 2px #777777 solid;
+    background-color: rgba(0, 0, 255, 0.2);
     text-align: center;
 }
 
@@ -338,14 +338,7 @@ main .menu_bar ul li {
 ****************************************************************************************/
 
 .search_account {
-    width: 25%;
-    margin-left: 20%;
-    float: left;
     background: linear-gradient(#000099, #000064, #000099);
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 10px;
 }
 
 .search_account:hover {

@@ -89,6 +89,7 @@
     <meta charset="UTF-8">
     <title>Log In - SM Bank</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="icon" href="img/SM.jpg"/>
 </head>
 <body class="background_login">
     <div class="login_title">

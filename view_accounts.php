@@ -44,6 +44,7 @@
     <meta charset="UTF-8">
     <title>View Accounts (User) - SM Bank</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="icon" href="img/SM.jpg"/>
 </head>
 <body>
     <?php require_once("inc/header.php"); ?>

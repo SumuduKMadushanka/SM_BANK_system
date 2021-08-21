@@ -52,6 +52,7 @@
     <meta charset="UTF-8">
     <title>View Profile (User) - SM Bank</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="icon" href="img/SM.jpg"/>
 </head>
 <body>
     <?php require_once("inc/header.php"); ?>
@@ -63,61 +64,51 @@
             <table class="view_user_table">
                 <tr>
                     <td class="view_table_lable"> First Name </td> <!-- view_table_lable -->
-                    <td> : </td>
                     <td class="view_table_data"> <?php echo $first_name; ?> </td> <!-- view_table_data -->
                 </tr>
 
                 <tr>
                     <td class="view_table_lable"> Last Name </td> <!-- view_table_lable -->
-                    <td> : </td>
                     <td class="view_table_data"> <?php echo $last_name; ?> </td> <!-- view_table_data -->
                 </tr>
 
                 <tr>
                     <td class="view_table_lable"> Username </td> <!-- view_table_lable -->
-                    <td> : </td>
                     <td class="view_table_data"> <?php echo $username; ?> </td> <!-- view_table_data -->
                 </tr>
 
                 <tr>
                     <td class="view_table_lable"> User Type </td> <!-- view_table_lable -->
-                    <td> : </td>
                     <td class="view_table_data"> <?php echo $user_type; ?>  </td> <!-- view_table_data -->
                 </tr>
 
                 <tr>
                     <td class="view_table_lable"> NIC </td> <!-- view_table_lable -->
-                    <td> : </td>
                     <td class="view_table_data"> <?php echo $nic; ?> </td> <!-- view_table_data -->
                 </tr>
 
                 <tr>
                     <td class="view_table_lable"> Address </td> <!-- view_table_lable -->
-                    <td> : </td>
                     <td class="view_table_data"> <?php echo $address; ?> </td> <!-- view_table_data -->
                 </tr>
 
                 <tr>
                     <td class="view_table_lable"> Birthday </td> <!-- view_table_lable -->
-                    <td> : </td>
                     <td class="view_table_data"> <?php echo $birthday; ?> </td> <!-- view_table_data -->
                 </tr>
 
                 <tr>
                     <td class="view_table_lable"> Profession </td> <!-- view_table_lable -->
-                    <td> : </td>
                     <td class="view_table_data"> <?php echo $profession; ?> </td> <!-- view_table_data -->
                 </tr>
 
                 <tr>
                     <td class="view_table_lable"> Contact Number </td> <!-- view_table_lable -->
-                    <td> : </td>
                     <td class="view_table_data"> <?php echo $contact_number; ?> </td> <!-- view_table_data -->
                 </tr>
 
                 <tr>
                     <td class="view_table_lable"> Email </td> <!-- view_table_lable -->
-                    <td> : </td>
                     <td class="view_table_data"> <?php echo $email; ?> </td> <!-- view_table_data -->
                 </tr>
             </table>

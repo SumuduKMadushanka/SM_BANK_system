@@ -1,7 +1,7 @@
 <header class="clearfix">
     <div class="bank_header">
         <div class="bank_logo">
-            <img src="img/SM.jpg">
+            <a href="home_user.php"><img src="img/SM.jpg"></a>
         </div> <!-- bank_logo -->
 
         <div class="bank_name">

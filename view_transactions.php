@@ -33,7 +33,7 @@
     $account_details .= "<dd class=\"account_data\">Account Type: {$user['account_type']}</dd>";
 
     // Query for get transaction details
-    $query = "SELECT transaction_id, time_stamp, description, money_transfer_id, amount, balance
+    $query = "SELECT time_stamp, description, money_transfer_id, amount, balance
         FROM transactions
         WHERE account_number = '{$account_number}'
         ORDER BY time_stamp DESC;";
@@ -44,7 +44,6 @@
 
     while ($user = mysqli_fetch_assoc($result)) {
         $transaction_list .= "<tr>";
-        $transaction_list .= "<td class=\"view_transaction_data\"> {$user['transaction_id']} </td>";
         $transaction_list .= "<td class=\"view_transaction_data\"> {$user['time_stamp']} </td>";
         $transaction_list .= "<td class=\"view_transaction_data\"> {$user['description']} </td>";
         if ($user["money_transfer_id"] == NULL)
@@ -73,6 +72,7 @@
     <meta charset="UTF-8">
     <title>View Transactions (User) - SM Bank</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="icon" href="img/SM.jpg"/>
 </head>
 <body>
     <?php require_once("inc/header.php"); ?>
@@ -87,8 +87,7 @@
 
             <table class="view_transaction">
                 <tr>
-                    <th class="view_transaction_header"> Transaction Id </th>
-                    <th class="view_transaction_header"> Time Stamp </th>
+                    <th class="view_transaction_header"> Transaction Time </th>
                     <th class="view_transaction_header"> Description </th>
                     <th class="view_transaction_header"> Money Transfer Id </th>
                     <th class="view_transaction_header"> Amount (Rs.) </th>

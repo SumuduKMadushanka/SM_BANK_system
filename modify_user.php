@@ -153,6 +153,7 @@
     <meta charset="UTF-8">
     <title>Edit Profile (User) - SM Bank</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="icon" href="img/SM.jpg"/>
 </head>
 <body>
     <?php require_once("inc/header.php"); ?>
@@ -178,49 +179,55 @@
                 ?>
 
                 <p>
-                    <label class="modify_user" for="first_name"> First Name: </label>
+                    <label for="nic"> NIC: </label>
+                    <input type="text" name="nic" id="nic" placeholder="NIC" 
+                        value=<?php echo "'{$nic}'"; ?> disabled>
+                </p>
+
+                <p>
+                    <label for="first_name"> First Name: </label>
                     <input type="text" name="first_name" id="first_name" placeholder="First Name" 
                         value=<?php echo "'{$first_name}'"; ?> required>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="last_name"> Last Name: </label>
+                    <label for="last_name"> Last Name: </label>
                     <input type="text" name="last_name" id="last_name" placeholder="Last Name" 
                         value=<?php echo "'{$last_name}'"; ?>>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="username"> Username: </label>
+                    <label for="username"> Username: </label>
                     <input type="text" name="username" id="username" placeholder="Username" 
                         value=<?php echo "'{$username}'"; ?> required>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="address"> Address: </label>
+                    <label for="address"> Address: </label>
                     <input type="text" name="address" id="address" placeholder="Address" 
                         value=<?php echo "'{$address}'"; ?> required>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="birthday"> Birthday: </label>
+                    <label for="birthday"> Birthday: </label>
                     <input type="text" name="birthday" id="birthday" placeholder="Birthday" 
                         value=<?php echo "'{$birthday}'"; ?> required>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="profession"> Profession: </label>
+                    <label for="profession"> Profession: </label>
                     <input type="text" name="profession" id="profession" placeholder="Profession" 
                         value=<?php echo "'{$profession}'"; ?>>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="contact_number"> Contact Number: </label>
+                    <label for="contact_number"> Contact Number: </label>
                     <input type="text" name="contact_number" id="contact_number" placeholder="Contact Number" 
                         value=<?php echo "'{$contact_number}'"; ?> required>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="email"> Email: </label>
+                    <label for="email"> Email: </label>
                     <input type="email" name="email" id="email" placeholder="Email" 
                         value=<?php echo "'{$email}'"; ?>>
                 </p>

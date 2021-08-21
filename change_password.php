@@ -82,6 +82,7 @@
     <meta charset="UTF-8">
     <title>Change Password (User) - SM Bank</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="icon" href="img/SM.jpg"/>
 </head>
 <body>
     <?php require_once("inc/header.php"); ?>
@@ -109,30 +110,30 @@
                 <input type="hidden" name="username" value=<?php echo "'{$nic}'"; ?>>
 
                 <p>
-                    <label class="modify_user" for="user_name"> Username: </label>
+                    <label for="user_name"> Username: </label>
                     <input type="text" name="user_name" id="user_name" placeholder="Username" 
                         value=<?php echo "'{$username}'"; ?> disabled>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="old_password"> Old Password: </label>
+                    <label for="old_password"> Old Password: </label>
                     <input type="password" name="old_password" id="old_password" placeholder="Old Password" 
                         required>
                 </p>
 
                 <p>
-                    <label class="modify_user" for="password"> New Password: </label>
+                    <label for="password"> New Password: </label>
                     <input type="password" name="password" id="password" placeholder="Password" 
                         required>
                 </p>
 
                 <p class="checkbox">
-                    <label class="modify_user" for="showpassword"> Show Passwords: </label>
+                    <label for="showpassword"> Show Passwords: </label>
                     <input type="checkbox" name="showpassword" id="showpassword">
                 </p>
 
                 <p>
-                    <label class="modify_user" for="confirm_password"> Confirm Password: </label>
+                    <label for="confirm_password"> Confirm Password: </label>
                     <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" 
                         required>
                 </p>
