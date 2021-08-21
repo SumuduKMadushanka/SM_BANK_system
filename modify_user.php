@@ -143,7 +143,7 @@
     }
 
     // Page name
-    $page_name = "modify_user";
+    $page_name = "profile_user";
 
 ?>
 
@@ -234,7 +234,7 @@
 
                 <p>
                     <button type="submit" name="submit">Save Changes</button>
-                    <a class="cancel" href="home_user.php">Cancel</a> <!-- cancel -->
+                    <a class="cancel" href="view_user.php">Cancel</a> <!-- cancel -->
                 </p>
             </form>
         </div> <!-- web_body -->

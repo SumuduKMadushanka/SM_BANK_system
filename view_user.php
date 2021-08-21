@@ -42,7 +42,7 @@
     }
 
     // Page name
-    $page_name = "view_user";
+    $page_name = "profile_user";
 
 ?>
 
@@ -112,6 +112,11 @@
                     <td class="view_table_data"> <?php echo $email; ?> </td> <!-- view_table_data -->
                 </tr>
             </table>
+
+            <p>
+                <a class="modify_user_link" href="modify_user.php"> Edit Profile </a> <!-- modify_user_link -->
+                <a class="modify_user_back" href="home_user.php"> Back </a> <!-- modify_user_back -->
+            </p>
         </div> <!-- web_body -->
     </main> <!-- main_body -->
 </body>

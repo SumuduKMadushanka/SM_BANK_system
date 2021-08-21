@@ -10,17 +10,9 @@
 
         <li>
             <?php
-                if ($page_name == "view_user") 
-                    echo "<a class=\"menu_item_selected\" href=\"view_user.php\"> View Profile </a>";
+                if ($page_name == "profile_user") 
+                    echo "<a class=\"menu_item_selected\" href=\"view_user.php\"> Profile </a>";
                 else echo "<a class=\"menu_item\" href=\"view_user.php\"> View Profile </a>";
-            ?>
-        </li>
-
-        <li>
-            <?php
-                if ($page_name == "modify_user") 
-                    echo "<a class=\"menu_item_selected\" href=\"modify_user.php\"> Edit Profile </a>";
-                else echo "<a class=\"menu_item\" href=\"modify_user.php\"> Edit Profile </a>";
             ?>
         </li>
 

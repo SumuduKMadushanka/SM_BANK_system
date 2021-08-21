@@ -44,7 +44,7 @@
     function page_open_verification($user_type) {
         verify_session_attribute("nic");
         verify_user_type($_SESSION["user_type"], $user_type);
-        verify_session_expired();
+        // verify_session_expired();
     }
 
     // Checks required fields
