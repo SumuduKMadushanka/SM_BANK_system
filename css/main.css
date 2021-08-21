@@ -367,6 +367,19 @@ main .menu_bar ul li {
 /***************************************************************************************
     View Transactions Body
 ****************************************************************************************/
+.account_head_t {
+    width: 75%;
+    float: left;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 0px 0px 0px 25px;
+}
+
+.back_p {
+    width: 20%;
+    float: right;
+}
+
 .view_transaction {
     width: 100%;
     font-size: 20px;
@@ -379,6 +392,27 @@ main .menu_bar ul li {
 .view_transaction_data {
     background-color: rgba(0, 0, 255, 0.2);
     text-align: center;
+}
+
+.cancel_transaction {
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+    float: right;
+    border-radius: 20px;
+    margin-top: 20px;
+    padding: 5px 10.5%;
+    background: linear-gradient(#990000, #640000, #990000);
+    color: white;
+    text-decoration: none;
+}
+
+.cancel_transaction:hover {
+    background: linear-gradient(#ff3333, #dd0000, #ff3333);
+}
+
+.cancel_transaction:active {
+    background: linear-gradient(#dd0000, #ff3333, #dd0000);
 }
 
 /***************************************************************************************

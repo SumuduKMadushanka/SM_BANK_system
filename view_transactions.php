@@ -81,9 +81,13 @@
         <?php require_once("inc/menu_bar.php"); ?>
         
         <div class="web_body clearfix">
-            <dl class="account">
+            <dl class="account_head_t">
                 <?php echo $account_details; ?>
-            </dl> <!-- account -->
+            </dl> <!-- account_head_t -->
+
+            <p class="back_p">
+                <a class="cancel_transaction" href="view_accounts.php"> Back </a>
+            </p>
 
             <table class="view_transaction">
                 <tr>
