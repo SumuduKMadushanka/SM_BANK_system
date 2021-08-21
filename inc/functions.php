@@ -30,14 +30,14 @@
         }
     }
 
-    // Verify session expired (1 min rule)
+    // Verify session expired (10 min rule)
     function verify_session_expired() {
         if (!isset($_SESSION["expire"]) || (time() - $_SESSION["expire"]) >= 0){
             clear_session();
             exit(header("Location: index.php"));
             
         } else {
-            $_SESSION["expire"] = time() + 60;
+            $_SESSION["expire"] = time() + 600;
         }
     }
 
