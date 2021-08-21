@@ -46,6 +46,7 @@
                         $_SESSION["first_name"] = $user_details["first_name"];
                         $_SESSION["last_name"] = $user_details["last_name"];
                         $_SESSION["user_type"] = $user_details["user_type"];
+                        $_SESSION["last_login"] = date("Y-m-d h:i:s a");
                         $_SESSION["expire"] = time() + 600;
                         
                         // Updating last Login

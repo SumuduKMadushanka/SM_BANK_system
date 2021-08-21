@@ -1,4 +1,5 @@
 <?php
+    date_default_timezone_set("Asia/Colombo");
 
     // Check if session attribute set
     function verify_session_attribute($attribute) {
@@ -42,7 +43,10 @@
     }
 
     function page_open_verification($user_type) {
-        verify_session_attribute("nic");
+        $attributes = array("nic", "first_name", "last_name", "user_type", "last_login", "expire");
+        foreach ($attributes as $attribute) {
+            verify_session_attribute($attribute);
+        }
         verify_user_type($_SESSION["user_type"], $user_type);
         verify_session_expired();
     }

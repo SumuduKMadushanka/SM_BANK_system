@@ -19,6 +19,12 @@
             ?>!
         </div> <!-- user_name -->
 
+        <div class="last_login">
+            Last Login:
+
+            <?php echo $_SESSION["last_login"] ?>
+        </div> <!-- last_login -->
+
         <a class="cancel" href="logout.php">Log Out</a> <!-- cancel -->
     </div> <!-- user_header -->
 </header>
