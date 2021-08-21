@@ -1,12 +1,12 @@
 <header class="clearfix">
-    <div class="header_user">
+    <div class="header_admin">
         <div class="bank_header">
             <div class="bank_logo">
-                <a href="home_user.php"><img src="img/SM.jpg"></a>
+                <a href="home_admin.php"><img src="img/SM.jpg"></a>
             </div> <!-- bank_logo -->
 
             <div class="bank_name">
-                SM Bank
+                SM Bank (ADMIN)
             </div> <!-- bank_name -->
         </div> <!-- bank_header -->
 
@@ -28,6 +28,5 @@
 
             <a class="cancel" href="logout.php">Log Out</a> <!-- cancel -->
         </div> <!-- user_header -->
-    </div> <!-- header_user -->
-    
+    </div> <!-- header_admin -->
 </header>

@@ -151,14 +151,24 @@ button:disabled {
 /***************************************************************************************
     Header
 ****************************************************************************************/
-header {
+.header_user {
+    width: 100%;
+    float: left;
     background-image: url("../img/Background_2.jpg");
     background-size: 100%;
-    padding: 5px 5px 2px 5px;
+}
+
+.header_admin {
+    width: 100%;
+    float: left;
+    background-image: url("../img/background_admin_1.jpg");
+    background-size: 100%;
 }
 
 header .bank_header {
     float: left;
+    margin-left: 5px;
+    margin-top: 5px;
 }
 
 header .bank_header .bank_logo {
