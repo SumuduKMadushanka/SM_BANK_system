@@ -27,7 +27,7 @@
         $account_list .= "<dt>{$user['account_number']}</dt>";
         $account_list .= "<dd class=\"account_data\">Current Balance: Rs. {$user['current_balance']}</dd>";
         $account_list .= "<dd class=\"account_data\">Account Type: {$user['account_type']}</dd>";
-        $account_list .= "</a>";
+        $account_list .= "</a><br>";
     }
 
     if ($account_list == "")
