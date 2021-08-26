@@ -5,7 +5,7 @@ USE sm_bank_db;
 DROP TABLE IF EXISTS account_types;
 CREATE TABLE account_types(
     account_type VARCHAR(20),
-    interest_rate DECIMAL(5, 3),
+    interest_rate DECIMAL(6, 4),
     PRIMARY KEY (account_type)
 );
 
